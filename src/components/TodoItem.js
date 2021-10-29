@@ -1,5 +1,5 @@
-import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
-import "./TodoItem.css";
+import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
+import './TodoItem.css';
 
 const TodoItem = ({
   todo,
@@ -10,7 +10,7 @@ const TodoItem = ({
   const { id, text, checked } = todo;
   return (
     <div className="TodoItem">
-      <div className={`content ${checked ? "checked" : ""}`}>
+      <div className={`content ${checked ? 'checked' : ''}`}>
         {checked ? (
           <MdCheckBox
             onClick={() => {

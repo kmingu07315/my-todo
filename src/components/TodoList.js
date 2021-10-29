@@ -1,5 +1,5 @@
-import TodoItem from "./TodoItem";
-import "./TodoList.css";
+import { TodoItem } from '../components';
+import './TodoList.css';
 
 const TodoList = ({
   todos,

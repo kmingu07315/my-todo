@@ -1,8 +1,8 @@
 {
   "name": "my-todo",
   "version": "0.1.0",
-  "homepage": "https://kmingu07315.github.io/my-todo",
-  "private": true,
+  "homepage": "https://min-9.github.io/my-todo",
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

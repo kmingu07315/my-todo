@@ -1,30 +1,35 @@
-import { useState } from "react";
-import "./App.css";
-import Template from "./components/Template";
-import TodoList from "./components/TodoList";
-import TodoInsert from "./components/TodoInsert";
-import { MdAddCircle } from "react-icons/md";
+import { useState, useEffect } from 'react';
+import { Template, TodoList, TodoInsert } from './components';
+import { MdAddCircle } from 'react-icons/md';
+import './App.css';
 
-let nextId = 4;
-const App = () => {
+export default function App() {
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [insertToggle, setInsertToggle] = useState(false);
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "고정적으로 할 일",
-      checked: false,
-    },
-  ]);
-  const onInsertToggle = () => {
+  const [todos, setTodos] = useState([]); // Todo List 추가
+  let nextId = todos.length;
+
+  useEffect(() => {
+    fetch('https://minix-api.github.io/api/todo-app/db.json')
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        setTodos(data['todos']);
+      });
+  }, []);
+
+  // Todo Item 추가
+  function onInsertToggle() {
     if (selectedTodo) {
       setSelectedTodo(null);
     }
     setInsertToggle(prev => !prev);
-  };
-  const onInsertTodo = text => {
-    if (text === "") {
-      return alert("할 일을 입력해주세요.");
+  }
+
+  function onInsertTodo(text) {
+    if (text === '') {
+      return alert('할 일을 입력해주세요.');
     } else {
       const todo = {
         id: nextId,
@@ -34,27 +39,32 @@ const App = () => {
       setTodos(todos => todos.concat(todo));
       nextId++;
     }
-  };
-  const onCheckToggle = id => {
+  }
+
+  function onCheckToggle(id) {
     setTodos(todos =>
       todos.map(todo =>
         todo.id === id ? { ...todo, checked: !todo.checked } : todo
       )
     );
-  };
-  const onChangeSelectedTodo = todo => {
+  }
+
+  function onChangeSelectedTodo(todo) {
     setSelectedTodo(todo);
-  };
-  const onRemove = id => {
+  }
+
+  function onRemove(id) {
     onInsertToggle();
     setTodos(todos => todos.filter(todo => todo.id !== id));
-  };
-  const onUpdate = (id, text) => {
+  }
+
+  function onUpdate(id, text) {
     onInsertToggle();
     setTodos(todos =>
       todos.map(todo => (todo.id === id ? { ...todo, text } : todo))
     );
-  };
+  }
+
   return (
     <Template todoLength={todos.length}>
       <TodoList
@@ -77,6 +87,4 @@ const App = () => {
       )}
     </Template>
   );
-};
-
-export default App;
+}

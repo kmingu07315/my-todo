@@ -1,30 +1,34 @@
-import { useEffect, useState } from "react";
-import { MdAddCircle } from "react-icons/md";
-import { TiTrash, TiPencil } from "react-icons/ti";
-import "./TodoInsert.css";
+import { useEffect, useState } from 'react';
+import { MdAddCircle } from 'react-icons/md';
+import { TiTrash, TiPencil } from 'react-icons/ti';
+import './TodoInsert.css';
 
-const TodoInsert = ({
+export default function TodoInsert({
   selectedTodo,
   onInsertToggle,
   onInsertTodo,
   onRemove,
   onUpdate,
-}) => {
-  const [value, setValue] = useState("");
+}) {
+  const [value, setValue] = useState('');
+
   const onChange = e => {
     setValue(e.target.value);
   };
+
   const onSubmit = e => {
     e.preventDefault();
     onInsertTodo(value);
-    setValue("");
+    setValue('');
     onInsertToggle();
   };
+
   useEffect(() => {
     if (selectedTodo) {
       setValue(selectedTodo.text);
     }
   }, [selectedTodo]);
+
   return (
     <div>
       <div className="background" onClick={onInsertToggle}></div>
@@ -63,6 +67,4 @@ const TodoInsert = ({
       </form>
     </div>
   );
-};
-
-export default TodoInsert;
+}

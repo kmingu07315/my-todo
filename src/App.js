@@ -6,8 +6,8 @@ import './App.css';
 export default function App() {
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [insertToggle, setInsertToggle] = useState(false);
-  const [todos, setTodos] = useState([]); // Todo List 추가
-  let nextId = todos.length;
+  const [todos, setTodos] = useState([]); // 할 일 목록
+  const [nextId, setNextId] = useState(0); // Todo item id 증가
 
   useEffect(() => {
     fetch('https://minix-api.github.io/api/todo-app/db.json')
@@ -15,7 +15,8 @@ export default function App() {
         return res.json();
       })
       .then(data => {
-        setTodos(data['todos']);
+        setTodos(data.todos);
+        setNextId(data.todos.length + 1);
       });
   }, []);
 
@@ -37,7 +38,7 @@ export default function App() {
         checked: false,
       };
       setTodos(todos => todos.concat(todo));
-      nextId++;
+      setNextId(nextId + 1);
     }
   }
 
@@ -77,7 +78,7 @@ export default function App() {
         <MdAddCircle />
       </div>
       {insertToggle && (
-        <TodoInsert
+        <TodoInsert // Todo 추가 컴포넌트 (팝업)
           selectedTodo={selectedTodo}
           onInsertToggle={onInsertToggle}
           onInsertTodo={onInsertTodo}

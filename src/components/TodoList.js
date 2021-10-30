@@ -1,12 +1,12 @@
 import { TodoItem } from '../components';
 import './TodoList.css';
 
-const TodoList = ({
+export default function TodoList({
   todos,
   onCheckToggle,
   onInsertToggle,
   onChangeSelectedTodo,
-}) => {
+}) {
   return (
     <div className="TodoList">
       {todos.map(todo => (
@@ -20,6 +20,4 @@ const TodoList = ({
       ))}
     </div>
   );
-};
-
-export default TodoList;
+}

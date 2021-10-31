@@ -10,7 +10,7 @@ export default function App() {
   const [nextId, setNextId] = useState(0); // Todo item id 증가
 
   useEffect(() => {
-    fetch('https://minix-api.github.io/api/todo-app/db.json')
+    fetch('https://minix-api.github.io/api/todos.json')
       .then(res => {
         return res.json();
       })
